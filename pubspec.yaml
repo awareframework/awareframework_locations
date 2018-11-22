@@ -1,6 +1,6 @@
 name: awareframework_locations
 description: A new flutter plugin project.
-version: 0.0.1
+version: 0.0.2
 author:
 homepage:
 
@@ -10,9 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  awareframework_core:
-    git:
-      url: git://github.com/awareframework/awareframework_core.git
+  awareframework_core: 
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec

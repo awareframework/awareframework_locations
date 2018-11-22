@@ -17,7 +17,7 @@ A new flutter plugin project.
   s.dependency 'Flutter'
 
   s.ios.deployment_target = '10.0'
-  s.dependency 'com.aware.ios.sensor.locations'
+  s.dependency 'com.awareframework.ios.sensor.locations'
   s.dependency 'awareframework_core' 
 end
 

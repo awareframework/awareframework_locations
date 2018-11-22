@@ -1,14 +1,13 @@
 import Flutter
 import UIKit
 import SwiftyJSON
-import com_aware_ios_sensor_locations
-import com_aware_ios_sensor_core
 import awareframework_core
+import com_awareframework_ios_sensor_core
+import com_awareframework_ios_sensor_locations
 
 public class SwiftAwareframeworkLocationsPlugin: AwareFlutterPluginCore, FlutterPlugin, AwareFlutterPluginSensorInitializationHandler, LocationsObserver {
 
-    
-    
+        
     public override init() {
         super.init()
         super.initializationCallEventHandler = self
