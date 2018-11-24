@@ -16,10 +16,13 @@ public class SwiftAwareframeworkLocationsPlugin: AwareFlutterPluginCore, Flutter
     var locationSensor:LocationsSensor?;
     
     public static func register(with registrar: FlutterPluginRegistrar) {
-        setChannels(with: registrar,
-                    instance: SwiftAwareframeworkLocationsPlugin(),
-                    methodChannelName: "awareframework_locations/method",
-                    eventChannelName: "awareframework_locations/event")
+        let instance = SwiftAwareframeworkLocationsPlugin()
+        setMethodChannel(with: registrar,
+                         instance: instance,
+                         channelName: "awareframework_locations/method")
+        setEventChannels(with: registrar,
+                         instance:instance,
+                         channelNames: ["awareframework_locations/event"])
     }
     
     public func initializeSensor(_ call: FlutterMethodCall,

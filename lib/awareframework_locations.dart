@@ -12,23 +12,23 @@ class LocationSensor extends AwareSensorCore {
 
   LocationSensor(LocationSensorConfig config):this.convenience(config);
   LocationSensor.convenience(config) : super(config){
-    super.setSensorChannels(_locationMethod, _locationEvent);
+    super.setMethodChannel(_locationMethod);
   }
 
   /// A sensor observer instance
-  Stream<Map<String,dynamic>> get onLocationChanged {
-    return super.receiveBroadcastStream("on_location_changed")
+  Stream<Map<String,dynamic>> onLocationChanged(String id) {
+    return super.getBroadcastStream(_locationEvent, "on_location_changed", id)
         .map((dynamic event) => Map<String,dynamic>.from(event));
   }
 
 }
 
 class LocationSensorConfig extends AwareSensorConfig {
-  bool statusGps = true;
+  bool   statusGps = true;
   double frequencyGps = 180.0;
   double minGpsAccuracy = 150.0;
-  int expirationTime = 300;
-  bool saveAll = false;
+  int    expirationTime = 300;
+  bool   saveAll = false;
 
   @override
   Map<String, dynamic> toMap() {
@@ -44,28 +44,23 @@ class LocationSensorConfig extends AwareSensorConfig {
 
 class LocationCard extends StatefulWidget{
 
-  LocationCard({Key key, @required this.sensor}) : super(key: key);
+  LocationCard({Key key, @required this.sensor, this.cardId="location_card", this.height=250.0 }) : super(key: key);
 
   LocationSensor sensor;
+  double height;
+  String cardId;
 
   @override
   State<StatefulWidget> createState() => new LocationCardState();
 }
 
-//class LoationCard extends StatefulWidget {
-//  LocationCard({Key key, @required this.sensor}) : super(key: key);
-//
-//  LocationSensor sensor;
-//
-//}
-//
+
 class LocationCardState extends State<LocationCard>{
 
   var data = "";
-
   void initState(){
     super.initState();
-    widget.sensor.onLocationChanged.listen((event){
+    widget.sensor.onLocationChanged(widget.cardId).listen((event){
       setState(() {
         if(event!=null){
           data = "timestamp:${event['timestamp']}\n"
@@ -80,9 +75,20 @@ class LocationCardState extends State<LocationCard>{
 
   Widget build(BuildContext context){
     return new AwareCard(
-      contentWidget: Text(data),
+      contentWidget: Row(
+        children: <Widget>[
+          new Text(data)
+        ],
+      ) ,
       title: "Locations",
       sensor: widget.sensor,
     );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    widget.sensor.cancelBroadcastStream(widget.cardId);
+    super.dispose();
   }
 }

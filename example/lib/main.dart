@@ -32,6 +32,8 @@ class _MyAppState extends State<MyApp> {
       ..dbType = 1;
     
     sensor = LocationSensor(config);
+
+    sensor.start();
   }
 
   @override
