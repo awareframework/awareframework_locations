@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:awareframework_locations/awareframework_locations.dart';
 
 void main() => runApp(new MyApp());
@@ -12,10 +11,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
 
-  var config;
-  var sensor;
+  LocationSensorConfig config;
+  LocationSensor sensor;
 
   @override
   void initState() {
@@ -27,11 +25,12 @@ class _MyAppState extends State<MyApp> {
   Future<void> initPlatformState() async {
     config = LocationSensorConfig();
     config
-      ..frequencyGps = 1.0
       ..debug = true
       ..dbType = 1;
     
     sensor = LocationSensor(config);
+
+    print(sensor);
 
     sensor.start();
   }

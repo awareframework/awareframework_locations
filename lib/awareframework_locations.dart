@@ -16,26 +16,75 @@ class LocationSensor extends AwareSensorCore {
   }
 
   /// A sensor observer instance
-  Stream<Map<String,dynamic>> onLocationChanged(String id) {
-    return super.getBroadcastStream(_locationEvent, "on_location_changed", id)
+  Stream<Map<String,dynamic>> get onLocationChanged {
+    return super.getBroadcastStream(_locationEvent, 'on_location_changed')
         .map((dynamic event) => Map<String,dynamic>.from(event));
+  }
+
+  @override
+  void cancelAllEventChannels() {
+    super.cancelBroadcastStream('on_location_changed');
   }
 
 }
 
 class LocationSensorConfig extends AwareSensorConfig {
-  bool   statusGps = true;
-  double frequencyGps = 180.0;
-  double minGpsAccuracy = 150.0;
-  int    expirationTime = 300;
-  bool   saveAll = false;
+
+  // TODO: make a converter or just send a String ?
+  String geoFences;
+
+  /// statusGps: Boolean true or false to activate or deactivate GPS locations. (default = true)
+  bool statusGps = true;
+
+  /// statusNetwork: Boolean true or false to activate or deactivate Network locations. (default = true)
+  bool statusNetwork = true;
+
+  /// statusLocationVisit: (only iOS)
+  bool statusLocationVisit = true;
+
+  /// statusPassive: Boolean true or false to activate or deactivate passive locations. (default = true)
+  bool statusPassive = true;
+
+  /// frequencyGps: Int how frequent to check the GPS location, in seconds.
+  /// By default, every 180 seconds. Setting to 0 (zero) will keep the GPS location tracking always on. (default = 180)
+  // TODO: interval or frequency? second or min?
+  int intervalGps = 180;
+
+  /// minGpsAccuracy: Int the minimum acceptable accuracy of GPS location, in meters.
+  /// By default, 150 meters. Setting to 0 (zero) will keep the GPS location tracking always on. (default = 150)
+  int minGpsAccuracy = 180;
+
+  /// frequencyNetwork: Int how frequently to check the network location, in seconds.
+  /// By default, every 300 seconds. Setting to 0 (zero) will keep the network location tracking always on. (default = 300)
+  // TODO: interval or frequency? second or min?
+  int intervalNetwork = 300;
+
+  /// minNetworkAccuracy: Int the minimum acceptable accuracy of network location, in meters.
+  /// By default, 1500 meters. Setting to 0 (zero) will keep the network location tracking always on. (default = 1500)
+  int minNetworkAccuracy = 1500;
+
+  /// expirationTime: Long the amount of elapsed time, in seconds, until the location is considered outdated.
+  /// By default, 300 seconds. (default = 300)
+  int expirationTime = 300;
+
+  /// saveAll: Boolean Whether to save all the location updates or not. (default = false)
+  bool saveAll = false;
 
   @override
   Map<String, dynamic> toMap() {
     var config = super.toMap();
+    if (geoFences != null){
+      // TODO: make a converter or just send a String ?
+      config['geoFences'] = geoFences;
+    }
     config['statusGps'] = statusGps;
-    config['frequencyGps'] = frequencyGps;
+    config['statusNetwork'] = statusNetwork;
+    config['statusLocationVist'] = statusLocationVisit;
+    config['statusPassive'] = statusPassive;
+    config['intervalGps'] = intervalGps;
+    config['intervalNework'] = intervalNetwork;
     config['minGpsAccuracy'] = minGpsAccuracy;
+    config['minNetworkAccuracy'] = minNetworkAccuracy;
     config['expirationTime'] = expirationTime;
     config['saveAll'] = saveAll;
     return config;
@@ -44,11 +93,15 @@ class LocationSensorConfig extends AwareSensorConfig {
 
 class LocationCard extends StatefulWidget{
 
-  LocationCard({Key key, @required this.sensor, this.cardId="location_card", this.height=250.0 }) : super(key: key);
+  LocationCard({Key key, @required this.sensor,
+                                   this.height = 250.0,
+                                    this.apiKey }) : super(key: key);
 
-  LocationSensor sensor;
-  double height;
-  String cardId;
+  final LocationSensor sensor;
+  final double height;
+  final String apiKey;
+
+  String data = "";
 
   @override
   State<StatefulWidget> createState() => new LocationCardState();
@@ -57,13 +110,12 @@ class LocationCard extends StatefulWidget{
 
 class LocationCardState extends State<LocationCard>{
 
-  var data = "";
   void initState(){
     super.initState();
-    widget.sensor.onLocationChanged(widget.cardId).listen((event){
+    widget.sensor.onLocationChanged.listen((event){
       setState(() {
         if(event!=null){
-          data = "timestamp:${event['timestamp']}\n"
+          widget.data = "timestamp:${event['timestamp']}\n"
                  "latitude:${event['latitude']}\n"
                  "longitude:${event['longitude']}\n"
                  "altitude:${event['altitude']}\n"
@@ -77,7 +129,7 @@ class LocationCardState extends State<LocationCard>{
     return new AwareCard(
       contentWidget: Row(
         children: <Widget>[
-          new Text(data)
+          new Text(widget.data)
         ],
       ) ,
       title: "Locations",
@@ -87,8 +139,7 @@ class LocationCardState extends State<LocationCard>{
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    widget.sensor.cancelBroadcastStream(widget.cardId);
+    widget.sensor.cancelAllEventChannels();
     super.dispose();
   }
 }
