@@ -29,13 +29,13 @@ import 'package:awareframework_core/awareframework_core.dart';
 
 ### Configuration Keys
 + `geoFences: String?` Geofences that are going to be checked on the location updates. If within the range of these fences, then the location is accepted as a permitted update. If null, all location updates are accepted as permitted. String follows the regex in format `(?:latitude),(?:longitude)[ \t;]+`. (default = `null`)
-+ [^Android Only]`statusGps: Boolean` true or false to activate or deactivate GPS locations. (default = `true`)
-+ [^Android Only]`statusNetwork: Boolean` true or false to activate or deactivate Network locations. (default = `true`)
-+ [^Android Only]`statusPassive: Boolean` true or false to activate or deactivate passive locations. (default = `true`)
++ `statusGps: Boolean`true or false to activate or deactivate GPS locations. (default = `true`) <sup>[Android Only](#)</sup> 
++ `statusNetwork: Boolean` true or false to activate or deactivate Network locations. (default = `true`) <sup>[Android Only](#)</sup>
++ `statusPassive: Boolean` true or false to activate or deactivate passive locations. (default = `true`) <sup>[Android Only](#)</sup>
 + `frequencyGps: Int` how frequent to check the GPS location, in seconds. By default, every 180 seconds. Setting to 0 (zero) will keep the GPS location tracking always on. (default = 180)
 + `minGpsAccuracy: Int`  the minimum acceptable accuracy of GPS location, in meters. By default, 150 meters. Setting to 0 (zero) will keep the GPS location tracking always on. (default = 150)
-+ [^Android Only]`frequencyNetwork: Int` how frequently to check the network location, in seconds. By default, every 300 seconds. Setting to 0 (zero) will keep the network location tracking always on. (default = 300)
-+ [^Android Only]`minNetworkAccuracy: Int` the minimum acceptable accuracy of network location, in meters. By default, 1500 meters. Setting to 0 (zero) will keep the network location tracking always on. (default = 1500)
++ `frequencyNetwork: Int` how frequently to check the network location, in seconds. By default, every 300 seconds. Setting to 0 (zero) will keep the network location tracking always on. (default = 300) <sup>[Android Only](#)</sup>
++ `minNetworkAccuracy: Int` the minimum acceptable accuracy of network location, in meters. By default, 1500 meters. Setting to 0 (zero) will keep the network location tracking always on. (default = 1500) <sup>[Android Only](#)</sup>
 + `expirationTime: Long` the amount of elapsed time, in seconds, until the location is considered outdated. By default, 300 seconds. (default = 300)
 + `saveAll: Boolean` Whether to save all the location updates or not. (default = `false`)
 + `enabled: Boolean` Sensor is enabled or not. (default = `false`)
@@ -46,8 +46,6 @@ import 'package:awareframework_core/awareframework_core.dart';
 + `dbType: Engine` Which db engine to use for saving data. (default = `Engine.DatabaseType.NONE`)
 + `dbPath: String` Path of the database. (default = "aware_locations")
 + `dbHost: String` Host for syncing the database. (default = `null`)
-
-[^Android Only]: The function is supported on Android only. iOS does not support the function.
 
 ## Data Representations
 The data representations is different between Android and iOS. Following links provide the information.
