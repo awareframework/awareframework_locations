@@ -25,10 +25,9 @@ class _MyAppState extends State<MyApp> {
   Future<void> initPlatformState() async {
     config = LocationSensorConfig();
     config
-      ..debug = true
-      ..dbType = 1;
+      ..debug = true;
     
-    sensor = LocationSensor(config);
+    sensor = LocationSensor.init(config);
 
     print(sensor);
 

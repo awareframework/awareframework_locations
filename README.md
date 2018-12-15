@@ -1,6 +1,8 @@
 # awareframework_locations
 
-The accelerometer measures the acceleration applied to the sensor built-in into the device, including the force of gravity.
+[![Build Status](https://travis-ci.org/awareframework/awareframework_locations.svg?branch=master)](https://travis-ci.org/awareframework/awareframework_locations)
+
+The locations sensor provides the best location estimate for the users’ current location, automatically.
 
 ## Install the plugin into project
 1. Edit `pubspec.yaml`
@@ -14,16 +16,16 @@ dependencies:
 import 'package:awareframework_locations/awareframework_locations.dart';
 import 'package:awareframework_core/awareframework_core.dart';
 ```
-        
 
 ## Public functions
 ### Locations Sensor
 - `start()`
 - `stop()` 
-- `sync(force: Boolean)`
+- `sync(boolean force)`
 - `enable()`
 - `disable()`
 - `isEnable()`
+- `setLabel(String label)`
 
 ### Configuration Keys
 + `geoFences: String?` Geofences that are going to be checked on the location updates. If within the range of these fences, then the location is accepted as a permitted update. If null, all location updates are accepted as permitted. String follows the regex in format `(?:latitude),(?:longitude)[ \t;]+`. (default = `null`)
@@ -62,12 +64,12 @@ var config = LocationsSensorConfig()
 // init sensor
 var sensor = new LocationsSensor(config);
 
-void mathod(){
+void method(){
     /// start 
     sensor.start();
     
     /// set observer
-    sensor.onLocationChanged.listen((Map<String,dynamic> result){
+    sensor.onLocationChanged.listen(LocationData data){
       setState((){
         // Your code here
       });

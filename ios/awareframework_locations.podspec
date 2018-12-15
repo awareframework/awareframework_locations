@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'awareframework_locations'
-  s.version = '0.0.4'
+  s.version = '0.0.5'
   s.summary          = 'A new flutter plugin project.'
   s.description      = <<-DESC
 A new flutter plugin project.
@@ -19,7 +19,7 @@ A new flutter plugin project.
   # s.static_framework = true
 
   s.ios.deployment_target = '10.0'
-  s.dependency 'com.awareframework.ios.sensor.locations', '~>0.2.2'
+  s.dependency 'com.awareframework.ios.sensor.locations', '~>0.4.0'
   s.dependency 'awareframework_core' 
 end
 
