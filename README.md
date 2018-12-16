@@ -1,4 +1,4 @@
-# awareframework_locations
+# Aware Location
 
 [![Build Status](https://travis-ci.org/awareframework/awareframework_locations.svg?branch=master)](https://travis-ci.org/awareframework/awareframework_locations)
 
@@ -21,7 +21,7 @@ import 'package:awareframework_core/awareframework_core.dart';
 ### Locations Sensor
 - `start()`
 - `stop()` 
-- `sync(boolean force)`
+- `sync(bool force)`
 - `enable()`
 - `disable()`
 - `isEnable()`
@@ -67,7 +67,7 @@ void method(){
     sensor.start();
     
     /// set observer
-    sensor.onLocationChanged.listen(LocationData data){
+    sensor.onLocationChanged.listen((LocationData data){
       setState((){
         // Your code here
       });

@@ -50,8 +50,8 @@ import 'package:flutter/material.dart';
 class LocationSensor extends AwareSensor {
   static const MethodChannel _locationMethod =
       const MethodChannel('awareframework_Location/method');
-  static const EventChannel _LocationStream =
-      const EventChannel('awareframework_Location/event');
+//  static const EventChannel _LocationStream =
+//      const EventChannel('awareframework_Location/event');
 
   static const EventChannel _onLocationChangedStream =
       const EventChannel('awareframework_Location/event_on_location_changed');
