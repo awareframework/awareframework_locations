@@ -6,6 +6,7 @@ import com_awareframework_ios_sensor_locations
 
 public class SwiftAwareframeworkLocationsPlugin: AwareFlutterPluginCore, FlutterPlugin, AwareFlutterPluginSensorInitializationHandler, LocationsObserver {
     
+    
     public override init() {
         super.init()
         super.initializationCallEventHandler = self
@@ -63,6 +64,10 @@ public class SwiftAwareframeworkLocationsPlugin: AwareFlutterPluginCore, Flutter
                 handler.eventSink(data.toDictionary())
             }
         }
+    }
+    
+    public func onHeadingChanged(data: HeadingData) {
+        
     }
     
     public func onVisit(data: VisitData) {

@@ -1,37 +1,31 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 
 import 'package:awareframework_locations/awareframework_locations.dart';
 
 void main() => runApp(new MyApp());
 
 class MyApp extends StatefulWidget {
+  late LocationSensor sensor;
+  LocationData data = LocationData();
   @override
   _MyAppState createState() => new _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-
-  LocationSensorConfig config;
-  LocationSensor sensor;
+  bool sensorState = true;
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
-  }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    config = LocationSensorConfig();
-    config
-      ..debug = true;
-    
-    sensor = LocationSensor.init(config);
+    var config = LocationSensorConfig()
+      ..debug = true
+      ..label = "label";
 
-    print(sensor);
+    // // init sensor without a context-card
+    widget.sensor = new LocationSensor.init(config);
 
-    sensor.start();
+    // card = new AccelerometerCard(sensor: sensor,);
   }
 
   @override
@@ -39,9 +33,33 @@ class _MyAppState extends State<MyApp> {
     return new MaterialApp(
       home: new Scaffold(
         appBar: new AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Plugin Example App'),
         ),
-        body: LocationCard(sensor: sensor),
+        body: Column(
+          children: [
+            TextButton(
+                onPressed: () {
+                  widget.sensor.onLocationChanged.listen((event) {
+                    setState(() {
+                      Text("Latitude:\t${event.latitude}");
+                      Text("Longitude:\t${event.longitude}");
+                    });
+                  });
+                  widget.sensor.start();
+                },
+                child: Text("Start")),
+            TextButton(
+                onPressed: () {
+                  widget.sensor.stop();
+                },
+                child: Text("Stop")),
+            TextButton(
+                onPressed: () {
+                  widget.sensor.sync();
+                },
+                child: Text("Sync")),
+          ],
+        ),
       ),
     );
   }

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -23,11 +23,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>This application needs access your locations.</string>
-	<key>NSLocationUsageDescription</key>
-	<string>This application needs access your locations.</string>
+	<string>This application needs to use location APIs.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This application needs to use location APIs.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This application needs access your locations.</string>
+	<string>This application needs to use location APIs.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

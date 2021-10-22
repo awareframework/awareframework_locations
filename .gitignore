@@ -5,7 +5,7 @@
 .pub/
 pubspec.lock
 
-build
+build/
 
 # Miscellaneous
 *.class
@@ -35,6 +35,7 @@ build
 /dev/bots/.recipe_deps
 /dev/bots/android_tools/
 /dev/docs/doc/
+/dev/docs/flutter.docs.zip
 /dev/docs/lib/
 /dev/docs/pubspec.yaml
 /packages/flutter/coverage/
@@ -93,4 +94,5 @@ unlinked_spec.ds
 !**/ios/**/default.mode2v3
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
-!/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages/
+!/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+

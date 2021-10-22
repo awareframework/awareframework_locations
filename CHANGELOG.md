@@ -1,3 +1,6 @@
+## 0.1.0
+* Support Flutter version 2
+
 ## 0.0.1
 
-* TODO: Describe initial release.
+* Initial release.
