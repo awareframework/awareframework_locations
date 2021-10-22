@@ -17,6 +17,7 @@ import 'package:awareframework_locations/awareframework_locations.dart';
 import 'package:awareframework_core/awareframework_core.dart';
 ```
 3. For iOS
+
 Open your project ( *.xcworkspace ) and add `NSLocationAlwaysAndWhenInUseUsageDescription` and `NSLocationWhenInUseUsageDescription`, `NSLocationAlwaysUsageDescription` into Info.plist.
 
 ## Public functions
