@@ -187,7 +187,6 @@ class LocationSensorConfig extends AwareSensorConfig {
 
   /// frequencyGps: Int how frequent to check the GPS location, in seconds.
   /// By default, every 180 seconds. Setting to 0 (zero) will keep the GPS location tracking always on. (default = 180)
-  // TODO: interval or frequency? second or min?
   int intervalGps = 180;
 
   /// minGpsAccuracy: Int the minimum acceptable accuracy of GPS location, in meters.
@@ -196,7 +195,6 @@ class LocationSensorConfig extends AwareSensorConfig {
 
   /// frequencyNetwork: Int how frequently to check the network location, in seconds.
   /// By default, every 300 seconds. Setting to 0 (zero) will keep the network location tracking always on. (default = 300)
-  // TODO: interval or frequency? second or min?
   int intervalNetwork = 300;
 
   /// minNetworkAccuracy: Int the minimum acceptable accuracy of network location, in meters.
@@ -228,13 +226,11 @@ class LocationSensorConfig extends AwareSensorConfig {
     config['minNetworkAccuracy'] = minNetworkAccuracy;
     config['expirationTime'] = expirationTime;
     config['saveAll'] = saveAll;
-    if (regions != null) {
-      List<Map<String, dynamic>> list = [];
-      for (int i = 0; i < regions.length; i++) {
-        list.add(regions[i].toMap());
-      }
-      config['regions'] = list;
+    List<Map<String, dynamic>> list = [];
+    for (int i = 0; i < regions.length; i++) {
+      list.add(regions[i].toMap());
     }
+    config['regions'] = list;
     return config;
   }
 }
@@ -298,10 +294,7 @@ class LocationData extends AwareData {
 
   @override
   String toString() {
-    if (source != null) {
-      return source.toString();
-    }
-    return super.toString();
+    return source.toString();
   }
 }
 
